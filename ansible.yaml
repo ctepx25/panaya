@@ -59,7 +59,7 @@
     when: output.stdout is defined
 
   - name: Restart nginx
-    shell: docker-compose restart nginx
+    shell: docker restart nginx
     register: output
     when: arg1.user_input == "deploy" or arg1.user_input == "restart"
   - debug: var=output.stdout_lines
