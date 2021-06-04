@@ -1,0 +1,8 @@
+[Unit]
+ Description=Service description
+
+[Service]
+ ExecStart=/bin/get-data.py
+
+[Install]
+ WantedBy=default.target
