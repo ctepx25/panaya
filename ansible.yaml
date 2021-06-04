@@ -21,6 +21,7 @@
     ansible.builtin.file:
       path: /tmp/panaya/
       state: absent
+    when: arg1.user_input == "deploy"  
       
   - name: Get git repository
     git:
