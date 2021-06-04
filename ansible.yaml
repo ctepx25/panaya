@@ -8,26 +8,9 @@
     register: output
     failed_when: "'FAILED' in output.stderr"
 
-  - name: Check git installed
-    command: git --version
-    register: output
-    failed_when: "'FAILED' in output.stderr"
-
   - name: Prompt
     pause: prompt="Please choose one of the following - deploy | restart | terminate"
     register: arg1
-
-  - name: Remove /tmp/panaya/
-    ansible.builtin.file:
-      path: /tmp/panaya/
-      state: absent
-    when: arg1.user_input == "deploy"  
-      
-  - name: Get git repository
-    git:
-      repo=https://github.com/ctepx25/panaya.git
-      dest=/tmp/panaya
-    when: arg1.user_input == "deploy"
 
   - name: Build image
     command: docker build -t nginx-panaya /tmp/panaya/nginx
