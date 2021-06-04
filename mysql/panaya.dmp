@@ -1,0 +1,99 @@
+-- MySQL dump 10.13  Distrib 5.7.34, for Linux (x86_64)
+--
+-- Host: localhost    Database: panaya
+-- ------------------------------------------------------
+-- Server version	5.7.34
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `As_account`
+--
+
+DROP TABLE IF EXISTS `As_account`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `As_account` (
+  `id` int(11) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `company_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `As_account`
+--
+
+LOCK TABLES `As_account` WRITE;
+/*!40000 ALTER TABLE `As_account` DISABLE KEYS */;
+INSERT INTO `As_account` VALUES (111,'Production System',123),(222,'Dev System',123);
+/*!40000 ALTER TABLE `As_account` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `As_company`
+--
+
+DROP TABLE IF EXISTS `As_company`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `As_company` (
+  `id` int(11) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `As_company`
+--
+
+LOCK TABLES `As_company` WRITE;
+/*!40000 ALTER TABLE `As_company` DISABLE KEYS */;
+INSERT INTO `As_company` VALUES (123,'Panaya'),(456,'Google'),(789,'IBM');
+/*!40000 ALTER TABLE `As_company` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `As_project`
+--
+
+DROP TABLE IF EXISTS `As_project`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `As_project` (
+  `id` int(11) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `account_id` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `As_project`
+--
+
+LOCK TABLES `As_project` WRITE;
+/*!40000 ALTER TABLE `As_project` DISABLE KEYS */;
+INSERT INTO `As_project` VALUES (1111,'Upgrade',111,1),(2222,'Testing',111,0),(3333,'Cleansing',111,2),(4444,'Restore',222,1);
+/*!40000 ALTER TABLE `As_project` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2021-06-03 19:55:32
