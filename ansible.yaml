@@ -1,0 +1,67 @@
+---
+- hosts: localhost
+  gather_facts: no
+  tasks:
+
+  - name: Check docker-compose installed
+    command: docker-compose -v
+    register: output
+    failed_when: "'FAILED' in output.stderr"
+
+  - name: Check git installed
+    command: git --version
+    register: output
+    failed_when: "'FAILED' in output.stderr"
+
+  - name: Prompt
+    pause: prompt="Please choose one of the following - deploy | restart | terminate"
+    register: arg1
+
+  - name: Get git repository
+    git:
+      repo=https://github.com/ctepx25/panaya.git
+      dest=/tmp/panaya
+    when: arg1.user_input == "deploy"
+
+  - name: Build image
+    command: docker build -t nginx-panaya /tmp/panaya/nginx
+    register: dockeroutput
+    when: arg1.user_input == "deploy"
+
+  - name: Create environment
+    command: docker-compose -f /tmp/panaya/docker-compose.yml up -d
+    register: dockeroutput
+    when: arg1.user_input == "deploy"
+
+  - name: Wait for mysql startup
+    pause:
+      seconds: 20
+    when: arg1.user_input == "deploy"
+
+  - name: Copy dump to mysql
+    shell: docker cp /tmp/panaya/mysql/panaya.dmp mysql:/
+    register: output
+    when: arg1.user_input == "deploy"
+  - debug: var=output.stdout_lines
+    when: output.stdout is defined
+
+  - name: Import data
+    shell: docker exec -i mysql bash -c "mysql -uroot -predhat panaya < /panaya.dmp"
+    register: output
+    when: arg1.user_input == "deploy"
+  - debug: var=output.stdout_lines
+    when: output.stdout is defined
+
+  - name: Restart nginx
+    shell: docker-compose restart nginx
+    register: output
+    when: arg1.user_input == "deploy" or arg1.user_input == "restart"
+  - debug: var=output.stdout_lines
+    when: output.stdout is defined
+
+  - name: Terminate environemnt
+    command: docker-compose -f /tmp/panaya/docker-compose.yml down
+    register: output
+    when: arg1.user_input == "terminate"
+  - debug: var=output.stdout_lines
+    when: output.stdout is defined

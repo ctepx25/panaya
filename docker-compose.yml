@@ -1,0 +1,33 @@
+version: '3.0'
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    hostname: 'mysql'
+    ports:
+      - 3306:3306
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: redhat
+      MYSQL_DATABASE: panaya
+      MYSQL_USER: nginx
+      MYSQL_PASSWORD: nginx
+    networks:
+      - local
+
+  nginx:
+    image: nginx-panaya
+    container_name: nginx
+    hostname: 'nginx'
+    command: /usr/sbin/init
+    privileged: true
+    tty: true
+    ports:
+      - 9980:80
+    networks:
+      - local
+    depends_on:
+      - mysql
+
+networks:
+  local:
