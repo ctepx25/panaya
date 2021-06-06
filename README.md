@@ -7,5 +7,5 @@
 - To terminate: ``` ansible-playbook /tmp/panaya/ansible.yaml ```  and type ```terminate```.
 
 
-### Tag flow
+### Nice to have CI pipeline:
 <img src="panaya-tag-flow.png" width="70%" height="70%"/>
