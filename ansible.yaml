@@ -9,18 +9,18 @@
     failed_when: "'FAILED' in output.stderr"
 
   - name: Prompt
-    pause: prompt="Please choose one of the following - deploy | restart | terminate"
+    pause: prompt="Please choose one of the following - deploy | rebuild | restart | terminate"
     register: arg1
 
   - name: Build image
     command: docker build -t nginx-panaya /tmp/panaya/nginx
     register: dockeroutput
-    when: arg1.user_input == "deploy"
+    when: arg1.user_input == "deploy" or arg1.user_input == "rebuild"
 
   - name: Create environment
     command: docker-compose -f /tmp/panaya/docker-compose.yml up -d
     register: dockeroutput
-    when: arg1.user_input == "deploy"
+    when: arg1.user_input == "deploy" or arg1.user_input == "rebuild"
 
   - name: Wait for mysql startup
     pause:
