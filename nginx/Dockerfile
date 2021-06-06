@@ -7,6 +7,5 @@ RUN rm -f /usr/share/nginx/html/index.html
 COPY get-data.py /bin/
 COPY GetData.service /etc/systemd/system/GetData.service
 RUN chmod 644 /etc/systemd/system/GetData.service
-#RUN systemctl daemon-reload
 RUN systemctl enable GetData.service
 ENV container=docker
